@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fibra ON – Internet Fibra Óptica con IP Fija</title>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root {
+  --primary: #0046CC;
+  --accent: #00D4FF;
+  --deep: #003399;
+  --bg-light: #F0F5FF;
+  --text-dark: #1A2E5A;
+  --text-mid: #3a4f7a;
+  --text-light: #6b7fa8;
+  --white: #ffffff;
+  --border: rgba(0,70,204,0.12);
+  --font-display: 'Outfit', sans-serif;
+  --font-body: 'Outfit', sans-serif;
+}
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { font-family: var(--font-body); background: var(--white); color: var(--text-dark); overflow-x: hidden; -webkit-font-smoothing: antialiased; }
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: var(--bg-light); }
+::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 2px; }
+
+/* NAV */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 999;
+  padding: 0 5%; height: 64px;
+  display: flex; align-items: center; justify-content: space-between;
+  background: var(--primary);
+}
+.nav-logo {
+  display: flex; align-items: center; gap: 0;
+  font-family: var(--font-display); font-size: 1.4rem; font-weight: 900; color: var(--white);
+  letter-spacing: -0.5px;
+}
+.nav-logo .on-badge {
+  background: var(--accent); color: #00254a;
+  font-weight: 900; padding: 0.1rem 0.45rem;
+  border-radius: 5px; margin-left: 6px;
+  font-size: 1.2rem; line-height: 1.4;
+}
+.nav-links { display: flex; list-style: none; gap: 2.5rem; align-items: center; }
+.nav-links a { font-size: 0.85rem; font-weight: 500; color: rgba(255,255,255,0.75); text-decoration: none; transition: color 0.2s; }
+.nav-links a:hover { color: var(--white); }
+.nav-cta { background: var(--accent) !important; color: #00254a !important; font-weight: 700 !important; padding: 0.5rem 1.2rem; border-radius: 8px; }
+
+/* HERO */
+.hero {
+  min-height: 100vh;
+  background: var(--primary);
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  text-align: center; padding: 8rem 5% 5rem;
+  position: relative; overflow: hidden;
+}
+.hero-grid-bg {
+  position: absolute; inset: 0;
+  background-image: linear-gradient(rgba(0,212,255,0.06) 1px, transparent 1px), linear-gradient(90deg, rgba(0,212,255,0.06) 1px, transparent 1px);
+  background-size: 50px 50px;
+  pointer-events: none;
+}
+.hero-orb {
+  position: absolute; width: 700px; height: 700px;
+  background: radial-gradient(circle, rgba(0,212,255,0.15) 0%, transparent 65%);
+  top: 50%; left: 50%; transform: translate(-50%,-50%);
+  pointer-events: none;
+}
+.hero-badge {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  font-size: 0.72rem; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase;
+  color: var(--accent); margin-bottom: 2rem;
+  padding: 0.4rem 1.1rem; border: 1px solid rgba(0,212,255,0.3); border-radius: 4px;
+  background: rgba(0,212,255,0.07);
+  animation: fadeUp 0.7s ease both;
+}
+.hero-badge::before { content:''; width:6px; height:6px; background:var(--accent); border-radius:50%; animation: pulse 2s infinite; }
+@keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.3;transform:scale(0.6)} }
+@keyframes fadeUp { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
+.hero h1 {
+  font-family: var(--font-display);
+  font-size: clamp(2.8rem, 8vw, 6rem);
+  font-weight: 800; line-height: 1.0; letter-spacing: -2px;
+  color: var(--white); margin-bottom: 1.5rem;
+  animation: fadeUp 0.7s 0.1s ease both;
+}
+.hero h1 .grad {
+  background: linear-gradient(90deg, var(--accent), #00ffee);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+}
+.hero-sub {
+  font-size: clamp(0.95rem, 2vw, 1.1rem); color: rgba(255,255,255,0.65);
+  max-width: 520px; line-height: 1.8; font-weight: 400; margin-bottom: 2.5rem;
+  animation: fadeUp 0.7s 0.2s ease both;
+}
+.hero-actions { display:flex; gap:1rem; justify-content:center; flex-wrap:wrap; animation: fadeUp 0.7s 0.3s ease both; }
+.btn-primary { background: var(--accent); color: #00254a; padding: 0.9rem 2.2rem; border-radius: 8px; text-decoration: none; font-weight: 700; font-size: 0.92rem; transition: transform 0.2s, box-shadow 0.2s; }
+.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 12px 32px rgba(0,212,255,0.3); }
+.btn-outline { background: transparent; color: var(--white); padding: 0.9rem 2.2rem; border-radius: 8px; border: 1px solid rgba(255,255,255,0.3); text-decoration: none; font-weight: 500; font-size: 0.92rem; transition: border-color 0.2s, background 0.2s; }
+.btn-outline:hover { border-color: rgba(255,255,255,0.6); background: rgba(255,255,255,0.05); }
+
+/* SIGNAL ANIMATION */
+.signal-wrap { margin-top: 4rem; animation: fadeUp 0.7s 0.4s ease both; position: relative; }
+.signal-rings { display:flex; align-items:center; justify-content:center; position:relative; width:140px; height:140px; margin:0 auto; }
+.signal-dot { width:16px; height:16px; background:var(--accent); border-radius:50%; position:absolute; box-shadow: 0 0 20px var(--accent); z-index:2; }
+.ring { position:absolute; border:1.5px solid rgba(0,212,255,0.5); border-radius:50%; animation: ripple 2.5s ease-out infinite; }
+.ring:nth-child(2){width:50px;height:50px;animation-delay:0s}
+.ring:nth-child(3){width:90px;height:90px;animation-delay:0.5s}
+.ring:nth-child(4){width:130px;height:130px;animation-delay:1s}
+@keyframes ripple { 0%{opacity:0.8;transform:scale(0.8)} 100%{opacity:0;transform:scale(1.1)} }
+.signal-label { font-size:0.72rem; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:rgba(255,255,255,0.4); margin-top:1.2rem; text-align:center; }
+
+/* STATS */
+.stats-strip {
+  background: var(--bg-light);
+  padding: 2.5rem 5%;
+  display: flex; justify-content: center; gap: 0; flex-wrap: wrap;
+  border-bottom: 1px solid var(--border);
+}
+.stat-item { padding: 0 3.5rem; text-align: center; border-right: 1px solid var(--border); }
+.stat-item:last-child { border-right: none; }
+.stat-num { font-family: var(--font-display); font-size: 2.2rem; font-weight: 800; color: var(--primary); display: block; letter-spacing: -1px; }
+.stat-label { font-size: 0.78rem; color: var(--text-light); font-weight: 500; margin-top: 0.2rem; }
+
+/* MARQUEE */
+.marquee-section { background: var(--primary); padding: 1.2rem 0; overflow: hidden; }
+.marquee-track { display: flex; gap: 4rem; animation: marquee 25s linear infinite; width: max-content; }
+.marquee-item { font-size: 0.72rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,0.4); white-space: nowrap; display: flex; align-items: center; gap: 1rem; }
+.marquee-item::after { content: '·'; color: var(--accent); }
+@keyframes marquee { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+
+/* SECTIONS */
+.section { padding: 7rem 5%; }
+.section-inner { max-width: 1200px; margin: 0 auto; }
+.eyebrow { font-size: 0.7rem; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--accent); margin-bottom: 0.8rem; }
+.section-title { font-family: var(--font-display); font-size: clamp(1.8rem, 4vw, 3rem); font-weight: 800; letter-spacing: -1px; line-height: 1.1; margin-bottom: 1rem; color: var(--text-dark); }
+.section-desc { font-size: 1rem; color: var(--text-light); font-weight: 400; line-height: 1.7; max-width: 520px; }
+
+/* ABOUT */
+.about { background: var(--white); }
+.about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; margin-top: 4rem; }
+.about-text p { color: var(--text-mid); font-weight: 400; line-height: 1.8; margin-bottom: 1rem; font-size: 0.97rem; }
+.about-features { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+.feat { background: var(--bg-light); border: 1px solid var(--border); padding: 1.8rem; border-radius: 16px; transition: border-color 0.2s, box-shadow 0.2s; }
+.feat:hover { border-color: var(--accent); box-shadow: 0 4px 24px rgba(0,70,204,0.08); }
+.feat-icon { width: 42px; height: 42px; background: var(--primary); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; margin-bottom: 1rem; }
+.feat h4 { font-size: 0.9rem; font-weight: 700; margin-bottom: 0.4rem; color: var(--text-dark); }
+.feat p { font-size: 0.8rem; color: var(--text-light); line-height: 1.5; }
+
+/* PLANES */
+.planes { background: var(--bg-light); }
+.plans-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.5rem; margin-top: 3rem; }
+.plan-card { background: var(--white); border: 1px solid var(--border); border-radius: 20px; padding: 2.5rem 2rem; transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s; }
+.plan-card:hover { border-color: var(--primary); box-shadow: 0 8px 40px rgba(0,70,204,0.1); transform: translateY(-4px); }
+.plan-card.highlight { background: var(--primary); border-color: var(--primary); }
+.plan-card.highlight .plan-name,
+.plan-card.highlight .plan-desc,
+.plan-card.highlight li { color: rgba(255,255,255,0.85) !important; }
+.plan-card.highlight .plan-name { color: var(--white) !important; }
+.plan-card.highlight .plan-divider { background: rgba(255,255,255,0.15); }
+.plan-badge { display: inline-block; font-size: 0.68rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; padding: 0.3rem 0.8rem; border-radius: 4px; margin-bottom: 1.5rem; }
+.badge-blue { background: rgba(0,70,204,0.1); color: var(--primary); }
+.badge-cyan { background: rgba(0,212,255,0.15); color: #0099cc; }
+.plan-card.highlight .badge-cyan { background: rgba(0,212,255,0.2); color: var(--accent); }
+.badge-green { background: rgba(0,180,100,0.1); color: #00a060; }
+.plan-name { font-family: var(--font-display); font-size: 1.4rem; font-weight: 800; letter-spacing: -0.5px; margin-bottom: 0.5rem; color: var(--text-dark); }
+.plan-speed { font-size: 2.5rem; font-family: var(--font-display); font-weight: 800; color: var(--accent); letter-spacing: -2px; margin-bottom: 0.3rem; }
+.plan-card.highlight .plan-speed { color: var(--accent); }
+.plan-speed-label { font-size: 0.75rem; font-weight: 600; color: var(--text-light); margin-bottom: 1.5rem; text-transform: uppercase; letter-spacing: 1px; }
+.plan-card.highlight .plan-speed-label { color: rgba(255,255,255,0.5); }
+.plan-desc { font-size: 0.83rem; color: var(--text-light); line-height: 1.6; font-weight: 400; margin-bottom: 1.5rem; }
+.plan-divider { height: 1px; background: var(--border); margin-bottom: 1.5rem; }
+.plan-features { list-style: none; margin-bottom: 2rem; }
+.plan-features li { display: flex; align-items: center; gap: 0.7rem; font-size: 0.83rem; color: var(--text-mid); font-weight: 400; padding: 0.4rem 0; }
+.plan-features li::before { content:''; width:16px; height:16px; background: var(--primary); border-radius:50%; flex-shrink:0; background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpath d='M2 6l3 3 5-5' stroke='%2300D4FF' stroke-width='1.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"); background-size:10px; background-repeat:no-repeat; background-position:center; }
+.plan-card.highlight .plan-features li::before { background-color: rgba(255,255,255,0.15); }
+.btn-plan { display: block; text-align: center; padding: 0.85rem; border-radius: 10px; font-weight: 700; font-size: 0.85rem; text-decoration: none; transition: all 0.2s; border: 2px solid var(--primary); color: var(--primary); background: transparent; }
+.btn-plan:hover { background: var(--primary); color: var(--white); }
+.plan-card.highlight .btn-plan { background: var(--accent); border-color: var(--accent); color: #00254a; }
+.plan-card.highlight .btn-plan:hover { opacity: 0.9; }
+
+/* SERVICIOS */
+.servicios { background: var(--white); }
+.servicios-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.5rem; margin-top: 3rem; }
+.serv-card { background: var(--bg-light); border: 1px solid var(--border); border-radius: 16px; padding: 2rem; transition: all 0.2s; }
+.serv-card:hover { border-color: var(--primary); transform: translateY(-2px); box-shadow: 0 4px 24px rgba(0,70,204,0.08); }
+.serv-icon { width: 52px; height: 52px; background: var(--primary); border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 1.4rem; margin-bottom: 1.2rem; }
+.serv-card h3 { font-family: var(--font-display); font-size: 1rem; font-weight: 700; margin-bottom: 0.5rem; color: var(--text-dark); }
+.serv-card p { font-size: 0.83rem; color: var(--text-light); line-height: 1.6; }
+
+/* CONTACT */
+.contact { background: var(--primary); }
+.contact .eyebrow { color: var(--accent); }
+.contact .section-title { color: var(--white); }
+.contact .section-desc { color: rgba(255,255,255,0.6); }
+.contact-grid { display: grid; grid-template-columns: 1fr 1.2fr; gap: 4rem; margin-top: 4rem; align-items: start; }
+.contact-cards { display: flex; flex-direction: column; gap: 1rem; }
+.contact-card { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12); padding: 1.5rem 1.8rem; border-radius: 14px; display: flex; align-items: center; gap: 1.2rem; transition: background 0.2s; }
+.contact-card:hover { background: rgba(255,255,255,0.1); }
+.cc-icon { width: 44px; height: 44px; border-radius: 12px; background: rgba(0,212,255,0.15); border: 1px solid rgba(0,212,255,0.25); display: flex; align-items: center; justify-content: center; font-size: 1.1rem; flex-shrink: 0; }
+.cc-label { font-size: 0.7rem; font-weight: 700; letter-spacing: 1px; color: var(--accent); text-transform: uppercase; margin-bottom: 0.2rem; }
+.cc-value { font-size: 0.92rem; color: rgba(255,255,255,0.85); font-weight: 500; }
+.contact-form-wrap { background: var(--white); border-radius: 20px; padding: 2.5rem; }
+.cf-title { font-family: var(--font-display); font-size: 1.3rem; font-weight: 800; letter-spacing: -0.5px; margin-bottom: 0.4rem; color: var(--text-dark); }
+.cf-sub { font-size: 0.83rem; color: var(--text-light); margin-bottom: 2rem; }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0.8rem; }
+.fg { margin-bottom: 0.8rem; }
+.fg input, .fg textarea, .fg select { width: 100%; background: var(--bg-light); border: 1px solid var(--border); border-radius: 10px; padding: 0.85rem 1rem; color: var(--text-dark); font-family: var(--font-body); font-size: 0.88rem; font-weight: 400; outline: none; transition: border-color 0.2s; appearance: none; }
+.fg input::placeholder, .fg textarea::placeholder { color: var(--text-light); }
+.fg input:focus, .fg textarea:focus, .fg select:focus { border-color: var(--primary); }
+.fg select option { background: var(--white); color: var(--text-dark); }
+.fg textarea { resize: vertical; min-height: 110px; }
+.btn-submit { width: 100%; background: var(--primary); color: var(--white); border: none; padding: 0.95rem; border-radius: 10px; font-family: var(--font-body); font-size: 0.92rem; font-weight: 700; cursor: pointer; transition: background 0.2s, transform 0.2s; margin-top: 0.4rem; }
+.btn-submit:hover { background: var(--deep); transform: translateY(-1px); }
+
+/* FOOTER */
+footer { background: var(--deep); border-top: 1px solid rgba(255,255,255,0.08); padding: 2.5rem 5%; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+.footer-logo { font-family: var(--font-display); font-size: 1rem; font-weight: 800; color: var(--white); display: flex; align-items: center; gap: 8px; }
+.footer-logo em { font-style: normal; color: var(--accent); }
+.footer-links { display: flex; gap: 2rem; list-style: none; }
+.footer-links a { font-size: 0.8rem; color: rgba(255,255,255,0.4); text-decoration: none; transition: color 0.2s; }
+.footer-links a:hover { color: rgba(255,255,255,0.8); }
+.footer-copy { font-size: 0.75rem; color: rgba(255,255,255,0.3); }
+
+@media (max-width: 900px) {
+  .nav-links { display: none; }
+  .about-grid, .contact-grid { grid-template-columns: 1fr; gap: 3rem; }
+  .about-features, .plans-grid, .servicios-grid { grid-template-columns: 1fr; }
+  .form-row { grid-template-columns: 1fr; }
+  .stat-item { padding: 1rem 1.5rem; }
+  footer { flex-direction: column; text-align: center; }
+  .footer-links { justify-content: center; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">
+    FIBRA <span class="on-badge">ON</span>
+  </div>
+  <ul class="nav-links">
+    <li><a href="#nosotros">Nosotros</a></li>
+    <li><a href="#planes">Planes</a></li>
+    <li><a href="#servicios">Servicios</a></li>
+    <li><a href="#contacto" class="nav-cta">Contratar</a></li>
+  </ul>
+</nav>
+
+<section class="hero">
+  <div class="hero-grid-bg"></div>
+  <div class="hero-orb"></div>
+  <div class="hero-badge">🔵 Fibra Óptica · Socios ON Negocios · Perú</div>
+  <h1>Internet que nunca te<br><span class="grad">apaga el negocio.</span></h1>
+  <p class="hero-sub">Fibra óptica simétrica para negocios con RUC. IP pública fija, firewall en la nube y soporte 24/7 incluidos. Distribuidor autorizado ON NEGOCIOS en Lima.</p>
+  <div class="hero-actions">
+    <a href="https://wa.me/51974297433" target="_blank" class="btn-primary">💬 Contratar ahora</a>
+    <a href="#planes" class="btn-outline">Ver planes →</a>
+  </div>
+  <div class="signal-wrap">
+    <div class="signal-rings">
+      <div class="signal-dot"></div>
+      <div class="ring"></div>
+      <div class="ring"></div>
+      <div class="ring"></div>
+    </div>
+    <div class="signal-label">Señal estable · IP Fija</div>
+  </div>
+</section>
+
+<div class="stats-strip">
+  <div class="stat-item"><span class="stat-num">100%</span><div class="stat-label">Fibra óptica pura</div></div>
+  <div class="stat-item"><span class="stat-num">IP</span><div class="stat-label">Fija incluida</div></div>
+  <div class="stat-item"><span class="stat-num">24/7</span><div class="stat-label">Soporte técnico</div></div>
+  <div class="stat-item"><span class="stat-num">🔒</span><div class="stat-label">Firewall en la nube</div></div>
+</div>
+
+<div class="marquee-section">
+  <div class="marquee-track">
+    <span class="marquee-item">Fibra Óptica</span><span class="marquee-item">IP Fija</span><span class="marquee-item">Firewall Cloud</span><span class="marquee-item">Alta Velocidad</span><span class="marquee-item">Seguridad 24/7</span><span class="marquee-item">Sin Cortes</span><span class="marquee-item">Baja Latencia</span><span class="marquee-item">Empresas y Hogar</span><span class="marquee-item">Fibra Óptica</span><span class="marquee-item">IP Fija</span><span class="marquee-item">Firewall Cloud</span><span class="marquee-item">Alta Velocidad</span><span class="marquee-item">Seguridad 24/7</span><span class="marquee-item">Sin Cortes</span><span class="marquee-item">Baja Latencia</span><span class="marquee-item">Empresas y Hogar</span>
+  </div>
+</div>
+
+<section class="section about" id="nosotros">
+  <div class="section-inner">
+    <p class="eyebrow">Quiénes somos</p>
+    <div class="about-grid">
+      <div class="about-text">
+        <h2 class="section-title">Conexión de verdad para Lima</h2>
+        <p>Fibra ON es distribuidor autorizado ON NEGOCIOS en Lima y principales ciudades del Perú. Ofrecemos fibra óptica simétrica para negocios con RUC, con IP pública fija y seguridad empresarial incluida.</p>
+        <p>Precios incluyen IGV. Instalación en 48 horas hábiles sujeto a cobertura. Distribuidor autorizado ON NEGOCIOS.</p>
+        <a href="https://wa.me/51974297433" target="_blank" class="btn-primary" style="display:inline-block;margin-top:1.5rem;">Consultar disponibilidad →</a>
+      </div>
+      <div class="about-features">
+        <div class="feat"><div class="feat-icon">🌐</div><h4>IP Fija incluida</h4><p>Dirección IP dedicada en todos los planes. Ideal para cámaras, servidores y acceso remoto.</p></div>
+        <div class="feat"><div class="feat-icon">🔒</div><h4>Firewall en la nube</h4><p>Protección perimetral gestionada en la nube sin hardware adicional.</p></div>
+        <div class="feat"><div class="feat-icon">⚡</div><h4>Baja latencia</h4><p>Fibra óptica pura sin cuellos de botella. Ideal para videollamadas y gaming.</p></div>
+        <div class="feat"><div class="feat-icon">🛡️</div><h4>Seguridad 25.7</h4><p>Estándar de seguridad avanzado para proteger tu red frente a amenazas externas.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section planes" id="planes">
+  <div class="section-inner">
+    <p class="eyebrow">Planes de internet</p>
+    <h2 class="section-title">Elige tu velocidad</h2>
+    <p class="section-desc">Todos los planes incluyen IP fija, firewall en la nube e instalación sin costo.</p>
+    <div class="plans-grid">
+      <div class="plan-card">
+        <span class="plan-badge badge-blue">Hogar</span>
+        <div class="plan-name">Plan Básico</div>
+        <div class="plan-speed">50<span style="font-size:1.2rem">Mbps</span></div>
+        <div class="plan-speed-label">Fibra simétrica</div>
+        <p class="plan-desc">Perfecto para familias que navegan, hacen streaming y trabajan desde casa.</p>
+        <div class="plan-divider"></div>
+        <ul class="plan-features">
+          <li>IP Fija incluida</li>
+          <li>Firewall en la nube</li>
+          <li>Soporte técnico 24/7</li>
+          <li>Sin límite de datos</li>
+        </ul>
+        <a href="https://wa.me/51974297433?text=Hola,%20me%20interesa%20el%20Plan%20Básico%20de%2050Mbps" target="_blank" class="btn-plan">Contratar plan</a>
+      </div>
+      <div class="plan-card highlight">
+        <span class="plan-badge badge-cyan">⭐ Más popular</span>
+        <div class="plan-name">Plan Pro</div>
+        <div class="plan-speed">100<span style="font-size:1.2rem">Mbps</span></div>
+        <div class="plan-speed-label">Fibra simétrica</div>
+        <p class="plan-desc" style="color:rgba(255,255,255,0.6);">El favorito. Velocidad profesional con seguridad empresarial incluida.</p>
+        <div class="plan-divider"></div>
+        <ul class="plan-features">
+          <li>IP Fija dedicada</li>
+          <li>Firewall avanzado</li>
+          <li>Seguridad 25.7</li>
+          <li>Soporte prioritario</li>
+        </ul>
+        <a href="https://wa.me/51974297433?text=Hola,%20me%20interesa%20el%20Plan%20Pro%20de%20100Mbps" target="_blank" class="btn-plan">Contratar plan</a>
+      </div>
+      <div class="plan-card">
+        <span class="plan-badge badge-green">Empresas</span>
+        <div class="plan-name">Plan Empresa</div>
+        <div class="plan-speed">200<span style="font-size:1.2rem">Mbps</span></div>
+        <div class="plan-speed-label">Fibra simétrica</div>
+        <p class="plan-desc">Solución completa para empresas con múltiples usuarios y acceso remoto.</p>
+        <div class="plan-divider"></div>
+        <ul class="plan-features">
+          <li>IP Fija empresarial</li>
+          <li>Firewall + VPN</li>
+          <li>SLA garantizado</li>
+          <li>Ejecutivo dedicado</li>
+        </ul>
+        <a href="https://wa.me/51974297433?text=Hola,%20me%20interesa%20el%20Plan%20Empresa%20de%20200Mbps" target="_blank" class="btn-plan">Cotizar ahora</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section servicios" id="servicios">
+  <div class="section-inner">
+    <p class="eyebrow">Nuestros servicios</p>
+    <h2 class="section-title">Más que internet</h2>
+    <p class="section-desc">Soluciones de conectividad y seguridad para hogares y empresas en Ate, Lima.</p>
+    <div class="servicios-grid">
+      <div class="serv-card">
+        <div class="serv-icon">🌐</div>
+        <h3>IP Fija dedicada</h3>
+        <p>Dirección IP permanente para acceso remoto, cámaras de seguridad, servidores web y escritorio remoto.</p>
+      </div>
+      <div class="serv-card">
+        <div class="serv-icon">🔒</div>
+        <h3>Firewall en la nube</h3>
+        <p>Protección perimetral gestionada en la nube. Bloqueo de amenazas en tiempo real sin hardware costoso.</p>
+      </div>
+      <div class="serv-card">
+        <div class="serv-icon">🛡️</div>
+        <h3>Seguridad 25.7</h3>
+        <p>Estándar de seguridad avanzado que protege tu red frente a intrusiones, malware y ataques externos.</p>
+      </div>
+      <div class="serv-card">
+        <div class="serv-icon">📡</div>
+        <h3>Fibra óptica pura</h3>
+        <p>Infraestructura 100% fibra óptica. Sin cables coaxiales, sin degradación de señal, sin excusas.</p>
+      </div>
+      <div class="serv-card">
+        <div class="serv-icon">🏢</div>
+        <h3>Soluciones empresariales</h3>
+        <p>Planes corporativos con SLA garantizado, VPN y soporte técnico presencial para tu negocio.</p>
+      </div>
+      <div class="serv-card">
+        <div class="serv-icon">⚙️</div>
+        <h3>Soporte técnico 24/7</h3>
+        <p>Equipo técnico disponible todo el día. Instalación profesional y atención postventa garantizada.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section contact" id="contacto">
+  <div class="section-inner">
+    <p class="eyebrow">Contáctanos</p>
+    <h2 class="section-title">Estamos en Ate, Lima</h2>
+    <div class="contact-grid">
+      <div>
+        <p class="section-desc" style="margin-bottom:2rem;">Escríbenos por WhatsApp o visítanos. Nuestros asesores están listos para ayudarte a elegir el plan ideal.</p>
+        <div class="contact-cards">
+          <div class="contact-card">
+            <div class="cc-icon">📞</div>
+            <div>
+              <div class="cc-label">WhatsApp / Teléfono</div>
+              <div class="cc-value"><a href="https://wa.me/51974297433" target="_blank" style="color:inherit;text-decoration:none;">+51 974 297 433</a></div>
+            </div>
+          </div>
+          <div class="contact-card">
+            <div class="cc-icon">📍</div>
+            <div>
+              <div class="cc-label">Dirección</div>
+              <div class="cc-value">CC Las Brisas de Ate, Tda 11 – Car. Central Km 16.5, Lima</div>
+            </div>
+          </div>
+          <div class="contact-card">
+            <div class="cc-icon">🕐</div>
+            <div>
+              <div class="cc-label">Horario de atención</div>
+              <div class="cc-value">Lun – Sáb: 9:00 – 20:00 hrs</div>
+            </div>
+          </div>
+          <div class="contact-card">
+            <div class="cc-icon">🏬</div>
+            <div>
+              <div class="cc-label">Zona de cobertura</div>
+              <div class="cc-value">Ate Vitarte y alrededores, Lima</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="contact-form-wrap">
+        <div class="cf-title">Solicita información</div>
+        <div class="cf-sub">Te respondemos en menos de 24 horas.</div>
+        <div class="form-row">
+          <div class="fg"><input type="text" placeholder="Nombre completo"></div>
+          <div class="fg"><input type="tel" placeholder="Teléfono"></div>
+        </div>
+        <div class="fg"><input type="email" placeholder="Correo electrónico"></div>
+        <div class="fg">
+          <select>
+            <option value="" disabled selected>¿Qué plan te interesa?</option>
+            <option>Plan Básico – 50 Mbps</option>
+            <option>Plan Pro – 100 Mbps</option>
+            <option>Plan Empresa – 200 Mbps</option>
+            <option>Consulta de cobertura</option>
+            <option>Otro</option>
+          </select>
+        </div>
+        <div class="fg"><textarea placeholder="Cuéntanos en qué podemos ayudarte..."></textarea></div>
+        <button class="btn-submit" onclick="window.open('https://wa.me/51974297433','_blank')">Enviar por WhatsApp</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-logo">FIBRA <span style="background:var(--accent);color:#00254a;padding:0.05rem 0.35rem;border-radius:4px;margin-left:5px;font-weight:900;">ON</span></div>
+  <ul class="footer-links">
+    <li><a href="#nosotros">Nosotros</a></li>
+    <li><a href="#planes">Planes</a></li>
+    <li><a href="#servicios">Servicios</a></li>
+    <li><a href="#contacto">Contacto</a></li>
+  </ul>
+  <div class="footer-copy">© 2025 Fibra ON · Ate, Lima, Perú</div>
+</footer>
+
+</body>
+</html>
